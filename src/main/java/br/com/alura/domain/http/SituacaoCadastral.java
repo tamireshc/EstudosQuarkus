@@ -1,4 +1,4 @@
-package br.com.alura.service.http;
+package br.com.alura.domain.http;
 
 public enum SituacaoCadastral {
 	ATIVO, INATIVO

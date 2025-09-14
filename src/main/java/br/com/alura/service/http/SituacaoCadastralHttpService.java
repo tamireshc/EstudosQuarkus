@@ -7,7 +7,8 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 
 @Path("/situacao-cadastral")
-@RegisterRestClient(configKey = "situacao-cadastral-api")
+// Chamador de api externa na porta 8181
+@RegisterRestClient(configKey = "situacao-cadastral-api") // Nome da configuração no application.properties
 interface SituacaoCadastralHttpService {
 	@GET
 	@Path("/{cnpj}")
