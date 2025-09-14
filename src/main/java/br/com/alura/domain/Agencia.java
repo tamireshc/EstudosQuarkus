@@ -18,7 +18,7 @@ public class Agencia {
 	@Column(name = "razao_social")
 	private String razaoSocial;
 	private String cnpj;
-	@OneToOne
+	@OneToOne(cascade = jakarta.persistence.CascadeType.ALL)
 	@JoinColumn(name = "endereco_id")
 	private Endereco endereco;
 
@@ -40,5 +40,13 @@ public class Agencia {
 
 	public Endereco getEndereco() {
 		return endereco;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public void setRazaoSocial(String razaoSocial) {
+		this.razaoSocial = razaoSocial;
 	}
 }
