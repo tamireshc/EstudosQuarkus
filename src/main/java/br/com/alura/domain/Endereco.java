@@ -1,37 +1,30 @@
 package br.com.alura.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
-class Endereco {
+public class Endereco {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+    public Integer id;
+
 	private String rua;
 	private String logradouro;
 	private String complemento;
 	private Integer numero;
 
-	public Integer getId() {
-		return id;
-	}
+	// Construtor vazio
+	public Endereco() {}
 
-	public String getRua() {
-		return rua;
-	}
+	// Getters e setters
+	public Integer getId() { return id; }
+	public String getRua() { return rua; }
+	public String getLogradouro() { return logradouro; }
+	public String getComplemento() { return complemento; }
+	public Integer getNumero() { return numero; }
 
-	public String getLogradouro() {
-		return logradouro;
-	}
-
-	public String getComplemento() {
-		return complemento;
-	}
-
-	public Integer getNumero() {
-		return numero;
-	}
+	public void setRua(String rua) { this.rua = rua; }
+	public void setLogradouro(String logradouro) { this.logradouro = logradouro; }
+	public void setComplemento(String complemento) { this.complemento = complemento; }
+	public void setNumero(Integer numero) { this.numero = numero; }
 }

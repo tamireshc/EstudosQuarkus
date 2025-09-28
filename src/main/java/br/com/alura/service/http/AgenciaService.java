@@ -7,6 +7,7 @@ import br.com.alura.domain.exceptions.AgenciaNaoAtivaOuNaoEncontradaException;
 import br.com.alura.domain.http.AgenciaHttp;
 import br.com.alura.domain.repository.AgenciaRepository;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.transaction.Transactional;
 
 @ApplicationScoped
 public class AgenciaService {
@@ -20,13 +21,14 @@ public class AgenciaService {
 		this.agenciaRepository = agenciaRepository;
 	}
 
+	@Transactional
 	public void cadastrar(Agencia agencia) {
-		AgenciaHttp agenciaHttp = situacaoCadastralHttpService.buscarPorCnpj(agencia.getCnpj());
-		if (agenciaHttp != null && agenciaHttp.getSituacaoCadastral().equals(agenciaHttp.getSituacaoCadastral().ATIVO)) {
-			agenciaRepository.persist(agencia);
-		} else {
-			throw new AgenciaNaoAtivaOuNaoEncontradaException("Agência com situação cadastral inválida");
+		agencia.id = null;      // força Hibernate a tratar como nova
+		if (agencia.getEndereco() != null) {
+			agencia.getEndereco().id = null; // força novo Endereco
 		}
+		agenciaRepository.persist(agencia);
+
 	}
 
 	public Agencia buscarPorId(Integer id) {
@@ -37,6 +39,7 @@ public class AgenciaService {
 		return agencia;
 	}
 
+	@Transactional
 	public void deletar(Integer id) {
 		Agencia agencia = buscarPorId(id);
 		if (agencia == null) {
@@ -45,6 +48,7 @@ public class AgenciaService {
 		agenciaRepository.delete(agencia);
 	}
 
+	@Transactional
 	public void alterar(Agencia agencia) {
 		Agencia agenciaExistente = buscarPorId(agencia.getId());
 		if (agenciaExistente == null) {

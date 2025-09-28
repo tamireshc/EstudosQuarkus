@@ -1,52 +1,35 @@
 package br.com.alura.domain;
 
-import io.quarkus.Generated;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class Agencia {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+    public Integer id;
+
 	private String nome;
+
 	@Column(name = "razao_social")
 	private String razaoSocial;
+
 	private String cnpj;
-	@OneToOne(cascade = jakarta.persistence.CascadeType.ALL)
+
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "endereco_id")
 	private Endereco endereco;
 
-	public Integer getId() {
-		return id;
-	}
+	// Construtor vazio
+	public Agencia() {}
 
-	public String getNome() {
-		return nome;
-	}
-
-	public String getRazaoSocial() {
-		return razaoSocial;
-	}
-
-	public String getCnpj() {
-		return cnpj;
-	}
-
-	public Endereco getEndereco() {
-		return endereco;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public void setRazaoSocial(String razaoSocial) {
-		this.razaoSocial = razaoSocial;
-	}
+	// Getters e setters
+	public Integer getId() { return id; }
+	public String getNome() { return nome; }
+	public void setNome(String nome) { this.nome = nome; }
+	public String getRazaoSocial() { return razaoSocial; }
+	public void setRazaoSocial(String razaoSocial) { this.razaoSocial = razaoSocial; }
+	public String getCnpj() { return cnpj; }
+	public void setCnpj(String cnpj) { this.cnpj = cnpj; }
+	public Endereco getEndereco() { return endereco; }
+	public void setEndereco(Endereco endereco) { this.endereco = endereco; }
 }
